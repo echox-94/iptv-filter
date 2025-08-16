@@ -418,5 +418,8 @@ FodyWeavers.xsd
 *.msp
 channels.m3u
 channels.xml
+overrides.json
 allowlist.txt
 denylist.txt
+*.archive/
+*.bat

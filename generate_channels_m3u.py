@@ -175,6 +175,22 @@ def write_m3u(items: List[Dict], path: Path):
         lines.append(f'#EXTINF:-1 {" ".join(parts)},{it["display"]}')
         lines.append(it["url"] or "")
     path.write_text("\n".join(lines), encoding="utf-8")
+    
+def order_by_allowlist(items, allow_rules):
+    if not allow_rules:
+        return items  # no change if no allowlist
+    ordered = []
+    remaining = items.copy()
+    for rule in allow_rules:
+        parsed = parse_rule(rule)
+        matched = [it for it in remaining if item_matches(it, parsed)]
+        if matched:
+            ordered.extend(matched)
+            # remove from remaining so we don’t duplicate
+            remaining = [it for it in remaining if it not in matched]
+    # add any leftovers at the end
+    ordered.extend(remaining)
+    return ordered
 
 def main():
     ap = argparse.ArgumentParser(description="Filter the iptv-org US M3U into your own list.")
@@ -199,6 +215,7 @@ def main():
     filtered = apply_lists(items, allow_rules, deny_rules)
     filtered = prefer(filtered)
     filtered = dedup(filtered, args.dedup)
+    filtered = order_by_allowlist(filtered, allow_rules)
 
     write_m3u(filtered, Path(args.out))
     print(f"Kept {len(filtered)} channels. Wrote {args.out}")

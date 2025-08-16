@@ -1,0 +1,13 @@
+[
+  {
+    "id": "DisneyChannel.us@East",
+    "displayName": "Disney Channel",
+    "channel": "5.0",
+    "imageUrl": "http://whatever.com/imageurl",
+    "groupTitle": "Kids"
+  },
+  {
+    "id": "FXX.us@East",
+    "imageUrl": "http://whateveragain.com/imageurlagain"
+  }
+]

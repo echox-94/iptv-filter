@@ -13,7 +13,7 @@ Local exact matcher for iptv-org/epg:
   </channels>
 
 Usage:
-  python get_channels_list.py --m3u "D:\Repos\iptv-filter\channels.m3u" --epg-dir "D:\Repos\epg" [--out channels_list.xml]
+  python generate_channels_xml.py --m3u "D:\Repos\iptv-filter\channels.m3u" --epg-dir "D:\Repos\epg" --out channels.xml
 """
 
 import argparse
